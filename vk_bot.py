@@ -50,6 +50,8 @@ def main():
                     handle_dialog_flow(event, vk_api)
         except ConnectionError as connection_error:
             logging.error(f'Ошибка сети {connection_error}')
+        except TimeoutError as timeout_error:
+            logging.error(f'Превышено время ожидания {timeout_error.with_traceback}')
         except Exception:
             logger.error(f'Бот упал с ошибкой: {traceback.format_exc()}')
 
