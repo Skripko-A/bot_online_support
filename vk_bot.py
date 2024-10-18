@@ -10,7 +10,8 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from tg_bot import set_telegram_logger
 
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = set_telegram_logger()
+
 
 env = Env()
 env.read_env()
@@ -35,7 +36,7 @@ def handle_dialog_flow(event, vk_api):
 
 
 def main():
-    logger = set_telegram_logger()
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     vk_api_key = env.str('VK_API_KEY')
     vk_bot_start_log_message = 'vk_bot started'
     while True:

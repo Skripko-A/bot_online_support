@@ -6,9 +6,7 @@ from google.cloud import dialogflow
 import logging
 
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO)
-
+logger = logging.getLogger('bot_logger')
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
     intents_client = dialogflow.IntentsClient()
@@ -38,6 +36,8 @@ def load_typical_phrases(filename):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                     level=logging.INFO)
     env = Env()
     env.read_env()
     project_id = env.str('PROJECT_ID')

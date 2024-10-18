@@ -8,7 +8,6 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger('bot_logger')
 
 env = Env()
@@ -50,6 +49,7 @@ def set_telegram_logger():
 
 def main():
     logger = set_telegram_logger()
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     updater = Updater(token=BOT_TOKEN)
     dispatcher = updater.dispatcher
 
