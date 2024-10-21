@@ -41,14 +41,14 @@ if __name__ == '__main__':
     env = Env()
     env.read_env()
     project_id = env.str('PROJECT_ID')
-    typical_phrases = load_typical_phrases(env.str('QUESTIONS'), default='questions.json')
-    for key in typical_phrases.keys():
+    typical_phrases = load_typical_phrases(env.str('QUESTIONS', 'questions.json'))
+    for key, questions_and_answers in typical_phrases.items:
         display_name = key
         try:
             create_intent(
                 project_id=project_id,
                 display_name=display_name,
-                training_phrases_parts=typical_phrases[display_name]['questions'],
-                message_texts=typical_phrases[display_name]['answer'])
+                training_phrases_parts=questions_and_answers['questions'],
+                message_texts=questions_and_answers['answer'])
         except BadRequest as bad_request_error:
             logging.error(bad_request_error)
