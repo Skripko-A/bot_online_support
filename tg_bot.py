@@ -44,8 +44,8 @@ def set_telegram_logger(bot_token, admin_chat_id):
 def main():
     env = Env()
     env.read_env()
-    project_id = env.str('PROJECT_ID')
-    bot_token = env.str('TOKEN')
+    project_id = env.str('DIALOG_FLOW_PROJECT_ID')
+    bot_token = env.str('TG_BOT_TOKEN')
     admin_chat_id = env.str('TG_ADMIN_CHAT_ID')
 
     logger = set_telegram_logger(bot_token=bot_token, admin_chat_id=admin_chat_id)

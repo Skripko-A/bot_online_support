@@ -29,11 +29,11 @@ def handle_dialog_flow(event, vk_api, project_id):
 def main():
     env = Env()
     env.read_env()
-    project_id = env.str('PROJECT_ID')
-    bot_token = env.str('TOKEN')
+    project_id = env.str('DIALOG_FLOW_PROJECT_ID')
+    tg_bot_token = env.str('TG_BOT_TOKEN')
     admin_chat_id = env.str('TG_ADMIN_CHAT_ID')
 
-    logger = set_telegram_logger(bot_token=bot_token, admin_chat_id=admin_chat_id)
+    logger = set_telegram_logger(bot_token=tg_bot_token, admin_chat_id=admin_chat_id)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     vk_api_key = env.str('VK_API_KEY')
     vk_bot_start_log_message = 'vk_bot started'

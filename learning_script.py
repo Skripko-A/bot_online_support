@@ -40,9 +40,9 @@ if __name__ == '__main__':
                      level=logging.INFO)
     env = Env()
     env.read_env()
-    project_id = env.str('PROJECT_ID')
-    typical_phrases = load_typical_phrases(env.str('QUESTIONS', 'questions.json'))
-    for key, questions_and_answers in typical_phrases.items:
+    project_id = env.str('DIALOG_FLOW_PROJECT_ID')
+    typical_phrases = load_typical_phrases(env.str('QUESTIONS_PATH', 'questions.json'))
+    for key, questions_and_answers in typical_phrases.items():
         display_name = key
         try:
             create_intent(
