@@ -41,7 +41,7 @@ if __name__ == '__main__':
     env = Env()
     env.read_env()
     project_id = env.str('PROJECT_ID')
-    typical_phrases = load_typical_phrases('questions.json')
+    typical_phrases = load_typical_phrases(env.str('QUESTIONS'), default='questions.json')
     for key in typical_phrases.keys():
         display_name = key
         try:
