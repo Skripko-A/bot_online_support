@@ -10,18 +10,9 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from tg_bot import set_telegram_logger
 
 
-logger = set_telegram_logger()
-
-
-env = Env()
-env.read_env()
-
-PROJECT_ID = env.str('PROJECT_ID')
-
-
-def handle_dialog_flow(event, vk_api):
+def handle_dialog_flow(event, vk_api, project_id):
     session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(PROJECT_ID, event.user_id)
+    session = session_client.session_path(project_id, event.user_id)
     logging.info(f"Session path: {session}")
     text_input = dialogflow.TextInput(text=event.text, language_code='Ru')
     query_input = dialogflow.QueryInput(text=text_input)
@@ -36,6 +27,13 @@ def handle_dialog_flow(event, vk_api):
 
 
 def main():
+    env = Env()
+    env.read_env()
+    project_id = env.str('PROJECT_ID')
+    bot_token = env.str('TOKEN')
+    admin_chat_id = env.str('TG_ADMIN_CHAT_ID')
+
+    logger = set_telegram_logger(bot_token=bot_token, admin_chat_id=admin_chat_id)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     vk_api_key = env.str('VK_API_KEY')
     vk_bot_start_log_message = 'vk_bot started'
@@ -48,7 +46,7 @@ def main():
             logger.info(vk_bot_start_log_message)
             for event in longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    handle_dialog_flow(event, vk_api)
+                    handle_dialog_flow(event, vk_api, project_id)
         except ConnectionError as connection_error:
             logging.error(f'Ошибка сети {connection_error}')
         except TimeoutError as timeout_error:
