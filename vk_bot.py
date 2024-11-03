@@ -7,18 +7,16 @@ from google.cloud import dialogflow
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 
+from set_dialogflow import process_dialogflow_response
 from tg_logger import set_telegram_logger
 
 
 def handle_dialog_flow(event, vk_api, project_id):
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, event.user_id)
-    logging.info(f"Session path: {session}")
-    text_input = dialogflow.TextInput(text=event.text, language_code='Ru')
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-        )
+    response = process_dialogflow_response(
+        session_client, session, event.text
+    )
 
     if not response.query_result.intent.is_fallback:
         vk_api.messages.send(

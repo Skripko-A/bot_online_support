@@ -64,4 +64,3 @@ if __name__ == '__main__':
                 message_texts=questions_and_answers['answer'])
         except BadRequest as bad_request_error:
             logging.error(bad_request_error)
-            

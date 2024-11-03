@@ -11,6 +11,7 @@ from telegram.ext import (Updater,
                           MessageHandler,
                           Filters)
 
+from set_dialogflow import process_dialogflow_response
 from tg_logger import set_telegram_logger
 
 
@@ -25,13 +26,7 @@ def handle_dialog_flow(update: Update, context: CallbackContext, project_id):
     session = session_client.session_path(
         project_id, update.effective_chat.id
         )
-    text_input = dialogflow.TextInput(
-        text=update.message.text, language_code='Ru'
-        )
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-        )
+    response = process_dialogflow_response(session_client, session, update.message.text)
     context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=response.query_result.fulfillment_text
