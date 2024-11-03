@@ -26,7 +26,9 @@ def handle_dialog_flow(update: Update, context: CallbackContext, project_id):
     session = session_client.session_path(
         project_id, update.effective_chat.id
         )
-    response = process_dialogflow_response(session_client, session, update.message.text)
+    response = process_dialogflow_response(
+        session_client, session, update.message.text
+        )
     context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=response.query_result.fulfillment_text
