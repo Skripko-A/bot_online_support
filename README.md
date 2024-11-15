@@ -121,10 +121,13 @@ python3 learning_script.py
 ### .env
  Запишите идентификационные данные в файлик .env:
 ```text
-TOKEN = id вашего бота в телеграм
-PROJECT_ID = id проекта в dialog flow
+TG_BOT_TOKEN = id вашего бота в телеграм
+DIALOG_FLOW_PROJECT_ID = id проекта в dialog flow
 VK_API_KEY = ключ сообщества в vk
-TG_ADMIN_CHAT_ID = id чата телеграм, в который бот будет присылать инфу мониторинга (бот запущен, бот упал)
+TG_ADMIN_CHAT_ID = id чата телеграм, в который бот будет присылать 
+                    инфу мониторинга (бот запущен, бот упал)
+QUESTIONS_PATH = относительны путь к файлу ('questions.json' если файл  
+                  в корне проекта) questions.py в котором у вас вопросы и ответы для обучения dialog flow
 ```
 
 ## Использование
